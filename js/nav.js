@@ -19,7 +19,7 @@ class NavManager {
 }
 
 (new NavManager())
-    .addLink("/index", "noto")
+    .addLink("/", "noto")
     .addLink("/about", "about")
     .addLink("/archive", "archive")
     .addLink("https://github.com/noto173", "github")

@@ -1,5 +1,6 @@
 function encrypt(key, text) {
     let seed = key.split("").reduce((a,c) => a + c.charCodeAt(0), 0);
+    console.log(seed);
     return text.split("").map((c,i) => {
         // simple PRNG
         seed = (seed * 1103515245 + 12345) & 0x7fffffff;

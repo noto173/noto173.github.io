@@ -1,0 +1,37 @@
+* {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+a:link {
+    color: #0099FF;
+}
+
+a:hover {
+    color: #46bfeb;
+}
+
+a:visited {
+    color: #3f1194;
+}
+
+a:visited:hover {
+    color: #804be1;
+}
+
+p {
+    font-size: 15pt;
+}
+
+.bismuthhtml {
+    background-color: #15153E;
+}
+
+.bismuthtext {
+    color: #6031e0;
+}
+
+#coluh {
+    border: solid 1px black;
+    width: 50px;
+    height: 50px;
+}
