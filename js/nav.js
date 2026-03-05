@@ -20,8 +20,7 @@ class NavManager {
 
 (new NavManager())
     .addLink("/index", "noto")
-    .addLink("/games", "my games")
-    .addLink("/goofy", "goofy games (unblocked)")
     .addLink("/archive", "archive")
+    .addLink("https://noto173.github.io/slope-game", "slope")
     .addLink("https://github.com/noto173", "github")
     .prependNav();

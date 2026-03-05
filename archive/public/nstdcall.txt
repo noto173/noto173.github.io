@@ -1,0 +1,27 @@
+"nstdcall" Standard First Edition 2026
+3/4/2026 - Notoriginal
+
+Non-standard call, Notosoft standard call (who cares man)
+
+Caller pushes arguments, return address, jumps to function.
+
+Callee preserves all clobbered registers except accumulator (ax for x86) and the data register (dx in x86).
+If the architecture does not have an equivalent accumulator and/or data register, just do nothing for them.
+Stack frame is not necessary, but can be used by callee if arguments are passed.
+Callee cleans stack.
+Callee pops the return address into the instruction pointer.
+
+i386 assembly example:
+
+add:
+    enter
+    mov eax, [bp+8]
+    add eax, [bp+12]
+    leave
+    ret
+    
+start:
+    push dword 300
+    push dword 86
+    call add
+    ; ax now has 386

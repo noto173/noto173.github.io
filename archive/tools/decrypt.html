@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/archive.css">
+    <title>archive decryptor</title>
+</head>
+<body>
+    <h1>The Archive Decryptor</h1>
+    <div class="break-stuff">
+        <input type="text" id="salt" placeholder="Place your key here." />
+        <textarea id="data" placeholder="Place your data here." rows="25" cols="80"></textarea>
+        <span>
+            <input type="button" onclick="inData.value = encrypt(inSalt.value, compress(inData.value,100));" value="Encrypt!" />
+            <input type="button" onclick="inData.value = decompress(decrypt(inSalt.value, inData.value));" value="Decrypt!" />
+        </span>
+    </div>
+    <footer>
+        <small>112 Archives, 2022-2026</small>
+    </footer>
+</body>
+<script src="/js/lz77.js"></script>
+<script src="/js/crypt.js"></script>
+<script>
+const inSalt = document.querySelector("#salt");
+const inData = document.querySelector("#data");
+</script>
+</html>

@@ -1,3 +1,11 @@
 :root {
     font-family: 'Times New Roman', Times, serif;
 }
+
+div.break-stuff>* {
+    display: block;
+}
+
+footer {
+    margin-top: 1em;
+}
