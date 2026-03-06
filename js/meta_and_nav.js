@@ -39,6 +39,7 @@ if (document.querySelector("meta[name=\"nav\"]")) {
     (new NavManager())
         .addLink("/", "noto")
         .addLink("/about", "about")
+        .addLink("/testing", "testing")
         .addLink("/archive", "archive")
         .addLink("https://github.com/noto173", "github")
         .prependNav();
@@ -47,4 +48,5 @@ if (document.querySelector("meta[name=\"nav\"]")) {
 let favicon = document.createElement("link");
 favicon.rel = "icon";
 favicon.href = "/favicon.png";
+
 document.head.appendChild(favicon);
