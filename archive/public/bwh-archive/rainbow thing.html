@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainbow Background with Music</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            animation: rainbow 10s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% { background: red; }
+            14% { background: orange; }
+            28% { background: yellow; }
+            42% { background: green; }
+            57% { background: blue; }
+            71% { background: indigo; }
+            85% { background: violet; }
+            100% { background: red; }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Create an audio context and a square wave oscillator
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        oscillator.type = 'square';
+        oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // Set the frequency to 440 Hz (A4)
+        oscillator.connect(audioContext.destination);
+        oscillator.start();
+
+        // Stop the oscillator after 5 seconds (you can adjust this duration)
+        setTimeout(() => {
+            oscillator.stop();
+        }, 5000);
+    </script>
+</body>
+</html>

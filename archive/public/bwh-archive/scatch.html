@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Block Programming Language</title>
+    <style>
+        /* Your existing CSS styles */
+    </style>
+</head>
+<body>
+    <div id="stage"></div>
+    <div id="blocks"></div>
+    <div id="scripts"></div>
+    <div id="greenFlag">▶</div>
+    
+    <script>
+        const stage = document.getElementById('stage');
+        const blocksContainer = document.getElementById('blocks');
+        const scriptsContainer = document.getElementById('scripts');
+        const greenFlag = document.getElementById('greenFlag');
+        const character = document.createElement('div');
+        character.id = 'character';
+        stage.appendChild(character);
+
+        const scriptBlocks = [];
+
+        const blockTypes = [
+            { type: 'move', label: 'Move by', input: 'number', value: 50, unit: 'px' },
+            { type: 'turn', label: 'Turn by', input: 'number', value: 45, unit: '°' },
+            { type: 'changeColor', label: 'Change Color', input: 'color' },
+            { type: 'repeat', label: 'Repeat', input: 'number', value: 3 },
+            { type: 'if', label: 'If Color is', input: 'color' },
+            // Add more block types here
+            { type: 'jump', label: 'Jump' },
+            { type: 'hide', label: 'Hide' }
+        ];
+
+        blockTypes.forEach(blockType => {
+            const block = document.createElement('div');
+            block.classList.add('block');
+            block.textContent = blockType.label;
+            
+            if (blockType.input) {
+                const input = document.createElement('input');
+                input.type = blockType.input;
+                input.value = blockType.value || '';
+                block.appendChild(input);
+            }
+            
+            block.addEventListener('click', () => handleBlockClick(blockType));
+            blocksContainer.appendChild(block);
+        });
+
+        greenFlag.addEventListener('click', runScript);
+
+        function handleBlockClick(blockType) {
+            const scriptBlock = document.createElement('div');
+            scriptBlock.classList.add('block');
+            scriptBlock.textContent = blockType.label;
+            
+            if (blockType.input) {
+                const input = document.querySelector(`#${blockType.type} input`);
+                scriptBlock.appendChild(document.createTextNode(` ${input.value}${blockType.unit || ''}`));
+            }
+
+            scriptsContainer.appendChild(scriptBlock);
+            scriptBlocks.push({ type: blockType.type, input: blockType.input, value: input.value });
+        }
+
+        function runScript() {
+            scriptBlocks.forEach(scriptBlock => {
+                if (scriptBlock.type === 'move') {
+                    moveCharacter(parseInt(scriptBlock.value));
+                } else if (scriptBlock.type === 'turn') {
+                    turnCharacter(parseInt(scriptBlock.value));
+                } else if (scriptBlock.type === 'changeColor') {
+                    changeCharacterColor();
+                } else if (scriptBlock.type === 'repeat') {
+                    repeatScript(parseInt(scriptBlock.value));
+                } else if (scriptBlock.type === 'if') {
+                    ifColorMatches(scriptBlock.value);
+                } else if (scriptBlock.type === 'jump') {
+                    jumpCharacter();
+                } else if (scriptBlock.type === 'hide') {
+                    hideCharacter();
+                }
+                // Add more conditions for other block types
+            });
+        }
+
+        function moveCharacter(amount) {
+            character.style.left = parseInt(character.style.left) + amount + 'px';
+        }
+
+        function turnCharacter(amount) {
+            const currentRotation = parseInt(character.style.transform.replace('rotate(', '').replace('deg)', '')) || 0;
+            character.style.transform = `rotate(${currentRotation + amount}deg)`;
+        }
+
+        function changeCharacterColor() {
+            const colors = ['red', 'green', 'blue', 'orange', 'purple', 'pink'];
+            const currentColor = character.style.backgroundColor;
+
+            let newColor = colors[Math.floor(Math.random() * colors.length)];
+            while (newColor === currentColor) {
+                newColor = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            character.style.backgroundColor = newColor;
+        }
+
+        function repeatScript(count) {
+            for (let i = 0; i < count; i++) {
+                runScript(); // Run the script inside the repeat block
+            }
+        }
+
+        function ifColorMatches(targetColor) {
+            const currentColor = character.style.backgroundColor;
+
+            if (currentColor === targetColor) {
+                runScript(); // Run the script inside the if block
+            }
+        }
+
+        function jumpCharacter() {
+            character.style.top = '20px'; // Example jump behavior
+        }
+
+        function hideCharacter() {
+            character.style.display = 'none';
+        }
+
+        // Add more custom functions for additional block types
+    </script>
+</body>
+</html>

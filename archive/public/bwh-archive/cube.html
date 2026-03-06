@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse-Facing Cube</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const cubeSize = 100;
+        let cubeX = canvas.width / 2;
+        let cubeY = canvas.height / 2;
+        
+        function drawCube(x, y, size, angle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.beginPath();
+            ctx.moveTo(-size / 2, -size / 2);
+            ctx.lineTo(size / 2, -size / 2);
+            ctx.lineTo(size / 2, size / 2);
+            ctx.lineTo(-size / 2, size / 2);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        function updateCanvas(event) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+            
+            const deltaX = mouseX - cubeX;
+            const deltaY = mouseY - cubeY;
+            
+            const angle = Math.atan2(deltaY, deltaX);
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            cubeX = canvas.width / 2;
+            cubeY = canvas.height / 2;
+            
+            drawCube(cubeX, cubeY, cubeSize, angle);
+        }
+        
+        window.addEventListener('mousemove', updateCanvas);
+        
+        // Initial drawing
+        drawCube(cubeX, cubeY, cubeSize, 0);
+    </script>
+</body>
+</html>
+This code creates an HTML page with a canvas element and uses JavaScript to draw a cube that stays centered on the canvas and faces towards the mouse pointer. The mousemove event listener continuously updates the cube's orientation based on the mouse position.
+
+
+
+
+User
+create a html page that uses the canvas element to draw a 3d cube that stays in the center and faces towards the mouse pointer
+ChatGPT
+Creating a fully 3D cube in HTML using the canvas element is a bit more complex than the previous example. To achieve a 3D effect and make the cube face towards the mouse pointer, you'll need to use 3D transformations and perspective. Here's an example of an HTML page that accomplishes this:
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Mouse-Facing Cube</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #222;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const cubeSize = 100;
+        const cubeHalfSize = cubeSize / 2;
+        let cubeX = canvas.width / 2;
+        let cubeY = canvas.height / 2;
+
+        function drawCube(x, y, size, angleX, angleY) {
+            const perspective = 500; // Adjust the perspective value as needed
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const vertices = [];
+            for (let i = 0; i < 8; i++) {
+                const dx = i & 1 ? -cubeHalfSize : cubeHalfSize;
+                const dy = i & 2 ? -cubeHalfSize : cubeHalfSize;
+                const dz = i & 4 ? -cubeHalfSize : cubeHalfSize;
+
+                const x0 = x + dx;
+                const y0 = y + dy;
+                const z0 = dz;
+
+                // Apply rotation around X-axis
+                const x1 = x0;
+                const y1 = y0 * Math.cos(angleX) - z0 * Math.sin(angleX);
+                const z1 = y0 * Math.sin(angleX) + z0 * Math.cos(angleX);
+
+                // Apply rotation around Y-axis
+                const x2 = x1 * Math.cos(angleY) - z1 * Math.sin(angleY);
+                const y2 = y1;
+                const z2 = x1 * Math.sin(angleY) + z1 * Math.cos(angleY);
+
+                // Apply perspective projection
+                const scale = perspective / (perspective + z2);
+                const screenX = x2 * scale + canvas.width / 2;
+                const screenY = y2 * scale + canvas.height / 2;
+
+                vertices.push({ x: screenX, y: screenY });
+            }
+
+            // Draw cube edges
+            ctx.beginPath();
+            ctx.moveTo(vertices[0].x, vertices[0].y);
+            for (let i = 1; i < 4; i++) {
+                ctx.lineTo(vertices[i].x, vertices[i].y);
+            }
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(vertices[4].x, vertices[4].y);
+            for (let i = 5; i < 8; i++) {
+                ctx.lineTo(vertices[i].x, vertices[i].y);
+            }
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.moveTo(vertices[0].x, vertices[0].y);
+            ctx.lineTo(vertices[4].x, vertices[4].y);
+
+            ctx.moveTo(vertices[1].x, vertices[1].y);
+            ctx.lineTo(vertices[5].x, vertices[5].y);
+
+            ctx.moveTo(vertices[2].x, vertices[2].y);
+            ctx.lineTo(vertices[6].x, vertices[6].y);
+
+            ctx.moveTo(vertices[3].x, vertices[3].y);
+            ctx.lineTo(vertices[7].x, vertices[7].y);
+
+            ctx.stroke();
+        }
+
+        function updateCanvas(event) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            const deltaX = mouseX - cubeX;
+            const deltaY = mouseY - cubeY;
+
+            const angleX = Math.atan2(deltaY, 500);
+            const angleY = Math.atan2(deltaX, 500);
+
+            drawCube(cubeX, cubeY, cubeSize, angleX, angleY);
+        }
+
+        window.addEventListener('mousemove', updateCanvas);
+
+        // Initial drawing
+        drawCube(cubeX, cubeY, cubeSize, 0, 0);
+    </script>
+</body>
+</html>

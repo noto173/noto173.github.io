@@ -1,0 +1,89 @@
+<style>
+
+* {
+
+    font-family: Arial;
+
+}
+
+</style>
+
+
+
+<h1>bismuth's web hosting service</h1>
+<title>bismuth web hosting</title>
+
+
+<small>this form doesnt work anymore because the site backend is long dead AND not able to be ran on gh pages <button onclick="this.parentNode.remove();">REMOVE THIS DARN LABEL I WANT TO SEE THE SITE AS IT WAS PRIOR TO ARCHIVAL 2</button></small>
+<form>
+
+    <label>page name</label><br>
+
+    <input type="text" maxlength="20" name="name"><br>
+
+    <label>html OR plaintext</label><br>
+
+    <textarea rows="7" cols="50" name="payload"></textarea><br>
+
+    <label>password (on creation, set this and save it for editing later on. websites without a password can be edited, so be careful.)</label><br>
+
+    <input type="password" name="pass"><br>
+
+    <input type="submit" value="render and host"><br>
+
+</form>
+
+
+
+<h1>pages being hosted</h1>
+
+<!--this script is not from the og site btw-->
+<script>
+const filesFinded = `archive/public/bwh-archive/...html
+archive/public/bwh-archive/a.html
+archive/public/bwh-archive/alphabet websites lore.html
+archive/public/bwh-archive/archive test0.html
+archive/public/bwh-archive/archive1.html
+archive/public/bwh-archive/ballsuck360degress.html
+archive/public/bwh-archive/beefydie.html
+archive/public/bwh-archive/beep.html
+archive/public/bwh-archive/befy die secret.html
+archive/public/bwh-archive/circles.html
+archive/public/bwh-archive/cube.html
+archive/public/bwh-archive/cube3d.html
+archive/public/bwh-archive/Edited Website Real.html
+archive/public/bwh-archive/Elons' Servant.html
+archive/public/bwh-archive/f.html
+archive/public/bwh-archive/hacka.html
+archive/public/bwh-archive/hi!.html
+archive/public/bwh-archive/idk.html
+archive/public/bwh-archive/lag.html
+archive/public/bwh-archive/marquee.html
+archive/public/bwh-archive/metal pipe.html
+archive/public/bwh-archive/nuh uh.html
+archive/public/bwh-archive/pctt bwhs port.html
+archive/public/bwh-archive/people with autism.html
+archive/public/bwh-archive/rainbow thing.html
+archive/public/bwh-archive/REAL!!11!!!!1.html
+archive/public/bwh-archive/real-base64.html
+archive/public/bwh-archive/real.html
+archive/public/bwh-archive/round 2.html
+archive/public/bwh-archive/scatch.html
+archive/public/bwh-archive/stock.html
+archive/public/bwh-archive/test.html
+archive/public/bwh-archive/the.html
+archive/public/bwh-archive/unlicensed photoshop.html
+archive/public/bwh-archive/why chatgpt is good!.html
+archive/public/bwh-archive/wto7 remix.html
+archive/public/bwh-archive/y first y website.html
+archive/public/bwh-archive/z first z website.html`.split("\n");
+filesFinded.forEach(file => {
+    let anchortag = document.createElement("a");
+    anchortag.href = "/" + file;
+    console.log(file);
+    anchortag.textContent = file.substring(27, file.length-5);
+    document.body.appendChild(anchortag);
+    document.body.appendChild(document.createElement("br"));
+});
+
+</script>
