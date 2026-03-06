@@ -39,7 +39,7 @@
 
 <!--this script is not from the og site btw-->
 <script>
-const filesFinded = `archive/public/bwh-archive/...html
+const filesFinded = `archive/public/bwh-archive/dotdot.html
 archive/public/bwh-archive/a.html
 archive/public/bwh-archive/alphabet websites lore.html
 archive/public/bwh-archive/archive test0.html
@@ -79,9 +79,12 @@ archive/public/bwh-archive/y first y website.html
 archive/public/bwh-archive/z first z website.html`.split("\n");
 filesFinded.forEach(file => {
     let anchortag = document.createElement("a");
-    anchortag.href = "/" + file;
+    anchortag.href = "/" + file.substring(0, file.length-5);
     console.log(file);
     anchortag.textContent = file.substring(27, file.length-5);
+    if (anchortag.textContent == "dotdot") {
+        anchortag.textContent = "..";
+    }
     document.body.appendChild(anchortag);
     document.body.appendChild(document.createElement("br"));
 });
