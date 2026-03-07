@@ -39,6 +39,7 @@ if (document.querySelector("meta[name=\"nav\"]")) {
     (new NavManager())
         .addLink("/", "noto")
         .addLink("/about", "about")
+        .addLink("/stock", "stock")
         .addLink("/testing", "testing")
         .addLink("/archive", "archive")
         .addLink("https://github.com/noto173", "github")
