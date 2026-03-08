@@ -1,5 +1,5 @@
 <!DOCTYPE html>
 
 <script>
-fetch(`https://notocities-backend.onrender.com/notocities/view?name=${(new URLSearchParams(window.location.search)).get("name")}`).then(x => document.documentElement.innerHTML = x.text());
+fetch(`https://notocities-backend.onrender.com/notocities/view?name=${(new URLSearchParams(window.location.search)).get("name")}`).then(x => x.text()).then(y => document.documentElement.innerHTML = y);
 </script>
