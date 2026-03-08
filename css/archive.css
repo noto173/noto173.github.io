@@ -9,3 +9,8 @@ div.break-stuff>* {
 footer {
     margin-top: 1em;
 }
+
+span.new {
+    color: red;
+    font-weight: bolder;
+}

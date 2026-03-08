@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<style>
+:root {
+    background-color: white;
+    font-family: sans-serif;
+}
+</style>
+<title>decremental game</title>
+
+<body onload="document.querySelector('button').innerHTML = number;">
+<h1>decremental game</h1>
+<button onclick="if (number == 1) {document.querySelector('p').innerHTML = 'you win'};number = number - 1;if (number == -1) {number = 0;};document.querySelector('button').innerHTML = number;"></button><br>
+<p>the goal of this game is to reach 0</p>
+
+<script>
+let number = 99999;
+</script>

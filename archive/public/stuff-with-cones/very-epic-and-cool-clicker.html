@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<style>:root {background-color: white;} .button {width: 175px;height: 75px;background-color: rgb(255,64,64);margin-bottom: 5px;} .hidden {display: none;}</style>
+<title>very epic and cool clicker</title>
+
+<h1>0</h1>
+<button class="button" onclick="(()=>{let score = document.querySelector('h1');score.innerHTML = Number(score.innerHTML) + 1;if (Number(score.innerHTML) >= 10) {document.querySelector('#button2').style.display = 'inline';};if (Number(score.innerHTML) >= 50) {document.querySelector('#button3').style.display = 'inline';};if (Number(score.innerHTML) >= 400) {document.querySelector('#button4').style.display = 'inline';document.querySelector('#winmsg').style.display = 'inline';};})();">click this super epic button to make the super epic number go up</button><br>
+<button class="button hidden" id="button2" onclick="(()=>{let score = document.querySelector('h1');score.innerHTML = Number(score.innerHTML) + 2;if (Number(score.innerHTML) >= 50) {document.querySelector('#button3').style.display = 'inline';};if (Number(score.innerHTML) >= 400) {document.querySelector('#button4').style.display = 'inline';document.querySelector('#winmsg').style.display = 'inline';};})();">click this super epic button to make the super epic number go up more bigger</button><br>
+<button class="button hidden" id="button3" onclick="(()=>{let score = document.querySelector('h1');score.innerHTML = Number(score.innerHTML) + 5;if (Number(score.innerHTML) >= 400) {document.querySelector('#button4').style.display = 'inline';document.querySelector('#winmsg').style.display = 'inline';};})();">click this super epic button to make the super epic number go up more biggerer</button><br>
+<button class="button hidden" id="button4" onclick="(()=>{let score = document.querySelector('h1');score.innerHTML = Number(score.innerHTML) + 100;})();">click this super epic button to make the super epic number go up more biggest</button><br>
+<h2 class="hidden" id="winmsg">you win the game!</h2>
