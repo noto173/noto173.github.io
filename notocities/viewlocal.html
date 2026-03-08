@@ -1,5 +1,5 @@
 <!DOCTYPE html>
 
 <script>
-fetch(`http://localhost:3000/notocities/view?name=${URLSearchParams.new(window.location.search).get("name")}`).then(x => document.documentElement.innerHTML = x.text());
+fetch(`http://localhost:3000/notocities/view?name=${(new URLSearchParams(window.location.search)).get("name")}`).then(x => document.documentElement.innerHTML = x.text());
 </script>
