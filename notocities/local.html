@@ -32,7 +32,7 @@ function getpages() {
     fetch(`${apiaddress}/api/list`).then(x => x.json()).then(pages => pages.forEach(page => {
         let pageanchor = document.createElement("a");
         // pageanchor.href = `/notocities/view?name=${page}`;
-        pageanchor.href = `${apiaddress}/view?name=${page}`;
+        pageanchor.href = `/notocities/view?name=${page}`;
         pageanchor.textContent = page;
         document.querySelector("#links").appendChild(pageanchor);
         document.querySelector("#links").appendChild(document.createElement("br"));
