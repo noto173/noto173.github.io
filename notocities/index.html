@@ -5,11 +5,21 @@
 
 <h1>notocities</h1>
 this is a very epic site to host very epic sites. it is written in node.<br>
-ANYBODY CAN EDIT ANY SITE!!!!!!!! password protection will be added at a later date<br>
-right now it is also http-only for viewing sites and such. https support will be added as well later<br>
 <span id="msg" style="font-size: 1.2em;color: blue;" hidden></span>
 <input type="text" id="pagename" placeholder="Name of page"><br>
 <textarea id="pagedata" rows="25" cols="80" placeholder="Page data"></textarea><br>
+<input type="text" id="pass" placeholder="Password"><br>
+<small>
+    Passwords are used to protect your site from getting edited by other people.<br>
+    If you set one, make sure you have it saved somewhere.<br>
+    Setting this when you save your website will give it the password you set.<br>
+    Setting this when editing a pre-existing site that does not have a password will set the password for the site.<br>
+    <br>
+    PLEASE DO NOT USE A PASSWORD YOU USE ON ANY OTHER SITE. THE PASSWORDS ARE STORED<br>
+    IN PLAINTEXT ON THE SERVER. THEY ARE NOT SECURE.<br>
+    <br>
+    Adding a password to your site does NOT make it private. It just makes it so people can't edit it.<br>
+</small>
 <button onclick="pagesend()">upload page</button>
 <h2>list of pages (may take a second)</h2>
 <small>If no pages appear in the list, it means the servers are down, or not yet set up after an update, etc</small>
@@ -45,13 +55,13 @@ function pagesend() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name: pagename.value, data: pagedata.value})
+        body: JSON.stringify({name: pagename.value, data: pagedata.value, pass: pass.value})
     }).then(x => x.json()).then(y => showMessage(y));
 }
 
 function showMessage(result) {
     msg.hidden = null;
-    msg.innerHTML = result == 69 ? `successfully sent site and no errors ig<br>` : `ruh roh error<br>`;
+    msg.innerHTML = result == 69 ? `successfully sent site and no errors ig<br>` : (result == -1 ? `invalid path<br>` : (result == -2 ? `can't edit this site<br>` : `wrong password<br>`));
     document.querySelector("#links").innerHTML = "";
     getpages();
 }

@@ -1,5 +1,0 @@
-<!DOCTYPE html>
-
-<script>
-fetch(`http://localhost:3000/notocities/view?name=${(new URLSearchParams(window.location.search)).get("name")}`).then(x => x.text()).then(y => document.documentElement.innerHTML = y);
-</script>
