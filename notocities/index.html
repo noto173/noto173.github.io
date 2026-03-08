@@ -45,6 +45,16 @@ function getpages() {
         pageanchor.href = `/notocities/view?name=${page}`;
         pageanchor.textContent = page;
         document.querySelector("#links").appendChild(pageanchor);
+        let pagecopy = document.createElement("button");
+        pagecopy.textContent = "copy site name & code (for editing purposes)";
+        pagecopy.pagename = page;
+        pagecopy.onclick = function() {
+            if (confirm("ya sure?")) {
+                pagename.value = this.pagename;
+                fetch(`https://notocities-backend.onrender.com/notocities/view?name=${this.pagename}`).then(x => x.text()).then(y => pagedata.value = y);
+            }
+        }
+        document.querySelector("#links").appendChild(pagecopy);
         document.querySelector("#links").appendChild(document.createElement("br"));
     }));
 }
