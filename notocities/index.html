@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<title>notocities</title>
+
+<h1>notocities</h1>
+this is a very epic site to host very epic sites. it is written in node.<br>
+ANYBODY CAN EDIT ANY SITE!!!!!!!! password protection will be added at a later date<br>
+right now it is also http-only for viewing sites and such. https support will be added as well later<br>
+<span id="msg" style="font-size: 1.2em;color: blue;" hidden></span>
+<input type="text" id="pagename" placeholder="Name of page"><br>
+<textarea id="pagedata" rows="25" cols="80" placeholder="Page data"></textarea><br>
+<button onclick="pagesend()">upload page</button>
+<h2>list of pages (may take a second)</h2>
+<small>If no pages appear in the list, it means the servers are down, or not yet set up after an update, etc</small>
+<div id="links"></div>
+
+<script src="/js/meta_and_nav.js"></script>
+<script>
+const apiaddress = `http://noto173.net/notocities`;
+const pagename = document.querySelector("#pagename");
+const pagedata = document.querySelector("#pagedata");
+const preview = document.querySelector("iframe");
+const msg = document.querySelector("#msg");
+// for future reference
+/*
+function pagerequest() {
+    fetch(`${apiaddress}?name=${pagename.value}`).then(x => x.text()).then(y => preview.srcdoc = y);
+}
+*/
+function getpages() {
+    fetch(`${apiaddress}/api/list`).then(x => x.json()).then(pages => pages.forEach(page => {
+        let pageanchor = document.createElement("a");
+        // pageanchor.href = `/notocities/view?name=${page}`;
+        pageanchor.href = `${apiaddress}/view?name=${page}`;
+        pageanchor.textContent = page;
+        document.querySelector("#links").appendChild(pageanchor);
+        document.querySelector("#links").appendChild(document.createElement("br"));
+    }));
+}
+
+function pagesend() {
+    fetch(`${apiaddress}/api/upload`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: pagename.value, data: pagedata.value})
+    }).then(x => x.json()).then(y => showMessage(y));
+}
+
+function showMessage(result) {
+    msg.hidden = null;
+    msg.innerHTML = result == 69 ? `successfully sent site and no errors ig<br>` : `ruh roh error<br>`;
+    document.querySelector("#links").innerHTML = "";
+    getpages();
+}
+
+getpages();
+</script>
