@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<title>canvas test</title>
+
+<h1>canvas test</h1>
+<canvas width="800" height="600" style="border: 1px solid black;"></canvas><br />
+make sure to check the inspect element console for very useful debugging messages
+<audio src="/testing/boing.mp3"></audio>
+<img src="/testing/happy.png" hidden>
+
+<script src="/js/meta_and_nav.js"></script>
+<script>
+const canvas = document.querySelector("canvas");
+const boingaudio = document.querySelector("audio");
+const happy = document.querySelector("img");
+
+const ctx = canvas.getContext("2d");
+
+let x = 0;
+let y = 0;
+let xdir = 1/3;
+let ydir = 4/9;
+let lastTimestamp = -1;
+let fpsFactor;
+let hue = 0;
+let boing_amount = 0;
+
+function boing() {
+    let clone = boingaudio.cloneNode();
+    document.body.append(clone);
+    clone.addEventListener("ended", function() {
+        this.remove();
+    })
+    clone.play();
+    boing_amount++;
+    console.log(`boing #${boing_amount}`)
+}
+
+function step(timestamp) {
+    fpsFactor = timestamp - lastTimestamp;
+    lastTimestamp = timestamp;
+    ctx.fillStyle = "rgb(255 255 255)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = `hsl(${hue} 100 50)`;
+    ctx.fillRect(x, y, 50, 50);
+    ctx.drawImage(happy, x, y);
+
+    x += xdir * fpsFactor;
+    if (x <= 0 || x >= canvas.width - 50) {
+        x = Math.max(Math.min(x, canvas.width - 50), 0);
+        xdir = 0 - xdir;
+        boing();
+    }
+
+    y += ydir * fpsFactor;
+    if (y <= 0 || y >= canvas.height - 50) {
+        y = Math.max(Math.min(y, canvas.height - 50), 0);
+        ydir = 0 - ydir;
+        boing();
+    }
+
+    hue += fpsFactor / 30;
+
+    requestAnimationFrame(step);
+}
+
+requestAnimationFrame(step);
+</script>
