@@ -22,8 +22,8 @@ this is a very epic site to host very epic sites. it is written in node.<br>
 </small>
 <button onclick="pagesend()">upload page</button>
 <h2>list of pages (may take a second)</h2>
-<small>If no pages appear in the list, it means the servers are down, or not yet set up after an update, etc</small>
-<div id="links"></div>
+<small>If no pages appear in the list, it means the servers are down, or not yet set up after an update, etc</small><br>
+<span id="links"></span>
 
 <script src="/js/meta_and_nav.js"></script>
 <script>
@@ -40,22 +40,28 @@ function pagerequest() {
 */
 function getpages() {
     fetch(`${apiaddress}/api/list`).then(x => x.json()).then(pages => pages.forEach(page => {
+        let parentspan = document.createElement("div");
+        parentspan.style.marginTop = ".5em";
         let pageanchor = document.createElement("a");
         // pageanchor.href = `/notocities/view?name=${page}`;
         pageanchor.href = `/notocities/view?name=${page}`;
         pageanchor.textContent = page;
-        document.querySelector("#links").appendChild(pageanchor);
+        parentspan.appendChild(pageanchor);
+        let nbsp = document.createElement("span");
+        nbsp.innerHTML = "&nbsp;&nbsp;&nbsp;";
+        parentspan.appendChild(nbsp);
         let pagecopy = document.createElement("button");
         pagecopy.textContent = "copy site name & code (for editing purposes)";
         pagecopy.pagename = page;
+        pagecopy.style.fontSize = ".6em";
         pagecopy.onclick = function() {
             if (confirm("ya sure?")) {
                 pagename.value = this.pagename;
-                fetch(`https://notocities-backend.onrender.com/notocities/view?name=${this.pagename}`).then(x => x.text()).then(y => pagedata.value = y);
+                fetch(`${apiaddress}/view?name=${this.pagename}`).then(x => x.text()).then(y => pagedata.value = y);
             }
         }
-        document.querySelector("#links").appendChild(pagecopy);
-        document.querySelector("#links").appendChild(document.createElement("br"));
+        parentspan.appendChild(pagecopy);
+        document.querySelector("#links").appendChild(parentspan);
     }));
 }
 
