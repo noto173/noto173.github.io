@@ -39,7 +39,7 @@ function pagerequest() {
 }
 */
 function getpages() {
-    fetch(`${apiaddress}/api/list`).then(x => x.json()).then(pages => pages.forEach(page => {
+    fetch(`${apiaddress}/api/list`).then(x => x.json()).then(pages => pages.sort().forEach(page => {
         let parentspan = document.createElement("div");
         parentspan.style.marginTop = ".5em";
         let pageanchor = document.createElement("a");
