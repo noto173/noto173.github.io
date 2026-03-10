@@ -51,7 +51,7 @@ function getpages() {
         pageanchor.textContent = page.name;
         parentspan.appendChild(pageanchor);
         let userspan = document.createElement("span");
-        userspan.textContent = ` ${page.user}   `;
+        userspan.textContent = ` ${page.author}   `;
         parentspan.appendChild(userspan);
         let pagecopy = document.createElement("button");
         pagecopy.textContent = "copy site name & code (for editing purposes)";
