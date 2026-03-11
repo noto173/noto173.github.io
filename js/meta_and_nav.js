@@ -45,8 +45,10 @@ if (document.querySelector("meta[name=\"nav\"]")) {
         .prependNav();
 }
 
+/*
 let favicon = document.createElement("link");
 favicon.rel = "icon";
 favicon.href = "/favicon.png";
 
 document.head.appendChild(favicon);
+*/
