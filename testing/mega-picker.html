@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<title>mega-picker</title>
+
+<h1>mega-picker</h1>
+list of all the pages within the testing sub-section of this website for easy access<br>
+last updated: 3/11/2025 18:34 EST<br>
+
+<script>
+const files = `testing/albubama.html
+testing/boing.mp3
+testing/canvas.html
+testing/central.html
+testing/coca-cola.html
+testing/espuma.mp4
+testing/gah.html
+testing/happy.png
+testing/homie-melon.html
+testing/idk.html
+testing/index.html
+testing/memes
+testing/memes/1.png
+testing/memes/2.png
+testing/memes/index.html
+testing/new-slang.html
+testing/no.html
+testing/north-bridge.html
+testing/northbridge.html
+testing/oh.html
+testing/shave.html
+testing/slang.html
+testing/slop
+testing/slop/cars-timmy.html
+testing/slop/index.html
+testing/slop/notebooks.html
+testing/slop/sloppier
+testing/slop/sloppier/albaquerque-is-a-place-in-new-mexico-where-they-buy-the-house.html
+testing/slop/sloppier/albuquerque-is-a-place-in-new-mexico-where-they-buy-the.html
+testing/slop/sloppier/index.html
+testing/slop/sloppier/maybe.html
+testing/slop/sloppier/potentially.html
+testing/slop/sloppier/totally-secret
+testing/slop/sloppier/totally-secret/index.html
+testing/slop/sloppier/yes.html
+testing/south-bridge.html
+testing/test.html
+testing/the-place-2.html
+testing/the-place.html
+testing/trumpets.mp3
+testing/useles.html
+testing/vr.html
+testing/wow.html
+testing/yee.html
+testing/yee.mp4`;
+
+const lineBreak = document.createElement("br");
+
+files.split("\n").forEach(file => {
+    if (file.substring(file.length - 5) == ".html") {
+        let anchor = document.createElement("a");
+        anchor.textContent = file.substring(8, file.length-5);
+        anchor.href = `/${file.substring(0, file.length-5)}`;
+        document.body.append(anchor, lineBreak.cloneNode());
+    }
+});
+</script>
