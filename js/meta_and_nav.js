@@ -40,6 +40,7 @@ if (document.querySelector("meta[name=\"nav\"]")) {
         .addLink("/", "noto")
         .addLink("/stock", "stock")
         .addLink("/testing", "testing")
+        .addLink("/memes", "memes")
         .addLink("/archive", "archive")
         .addLink("https://github.com/noto173", "github")
         .prependNav();
