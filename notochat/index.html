@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<title>notochat</title>
+
+<h1>notochat</h1>
+remember internet safety and idk blah blah blah<br>
+anonymous chatroom thingy<br>
+<input id="username" type="text" placeholder="Username (Optional)" oninput="localStorage.setItem('username', this.value);">
+<div id="chat" style="border: 1px solid black;width: 400px;height: 300px;overflow: scroll;"></div>
+<input id="message" type="text" placeholder="Message">
+<input type="button" onclick="send_message();" value="Send">
+
+<script>
+const username = document.querySelector("#username");
+const message = document.querySelector("#message");
+const chat = document.querySelector("#chat");
+
+const socket = new WebSocket(true ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:8080");
+
+document.addEventListener("DOMContentLoaded", function() {
+    if (localStorage.getItem("username") !== undefined) {
+        username.value = localStorage.getItem("username");
+    }
+});
+
+message.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        send_message();
+    }
+});
+
+socket.addEventListener("message", (event) => {
+    let recieved = JSON.parse(event.data);
+    recieve_message(recieved.username, recieved.message_body);
+});
+
+
+function send_message() {
+    socket.send(JSON.stringify({username: username.value, message_body: message.value}));
+}
+
+function recieve_message(username, message_body) {
+    let message = document.createElement("span");
+    let user = document.createElement("span");
+    user.textContent = `${username || "Anonymous"}: `;
+    user.style.color = (username !== undefined && username !== "") ? "blue" : "red";
+    let body = document.createElement("span");
+    body.textContent = message_body;
+    let linebreak = document.createElement("br");
+    message.append(user, body, linebreak);
+    let at_bottom = chat.scrollTop + chat.clientHeight >= chat.scrollHeight;
+    chat.append(message);
+    if (at_bottom) {
+        chat.scrollTop = chat.scrollHeight;
+    }
+}
+</script>
