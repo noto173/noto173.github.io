@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<title>canvas test v2</title>
+
+<h1>canvas test v2</h1>
+<canvas width="640" height="360" style="border: 1px solid black;"></canvas><br>
+speed<br>
+<input type="range" min="1" max="40" value="20"><br>
+<button onclick="fellas.push(new fella());">spawn new fella</button><br>
+<button onclick="Game.pause();">pause boing</button><br>
+<button onclick="Game.resume();">resume boing</button><br>
+make sure to check the inspect element console for very useful debugging messages
+<img src="/testing/happy.png" hidden>
+
+<script src="/js/notogame.js"></script>
+<script>
+class fella {
+    x;
+    y;
+    xdir;
+    ydir;
+    hue;
+
+    constructor() {
+        this.x = 0;
+        this.y = 0;
+        this.xdir = 1 / 3;
+        this.ydir = 4 / 9;
+        this.hue = 0;
+    }
+
+    update_and_draw(ctx, fpsFactor) {
+        ctx.fillStyle = `hsl(${this.hue} 100 50)`;
+        ctx.fillRect(this.x, this.y, 50, 50);
+        ctx.drawImage(happy, this.x, this.y);
+
+        this.x += this.xdir * (slider.value / 20) * fpsFactor;
+        if (this.x <= 0 || this.x >= canvas.width - 50) {
+            this.x = Math.max(Math.min(this.x, canvas.width - 50), 0);
+            this.xdir = 0 - this.xdir;
+            boing();
+        }
+
+        this.y += this.ydir * (slider.value / 20) * fpsFactor;
+        if (this.y <= 0 || this.y >= canvas.height - 50) {
+            this.y = Math.max(Math.min(this.y, canvas.height - 50), 0);
+            this.ydir = 0 - this.ydir;
+            boing();
+        }
+
+        this.hue += fpsFactor / 30;
+    }
+}
+
+const canvas = document.querySelector("canvas");
+const boingaudio = new Audio("/testing/boing.mp3");
+const happy = document.querySelector("img");
+const slider = document.querySelector("input");
+
+const ctx = canvas.getContext("2d");
+
+let fellas = [];
+
+let boing_amount = 0;
+
+let Game = new NotoGame(setup, step);
+Game.start();
+
+function boing() {
+    //return;
+    let clone = boingaudio.cloneNode();
+    document.body.append(clone);
+    clone.addEventListener("ended", function() {
+        this.remove();
+    })
+    clone.play();
+    boing_amount++;
+    console.log(`boing #${boing_amount}`)
+}
+
+function setup() {
+    fellas = [new fella()];
+}
+
+function step(fpsFactor) {
+    ctx.fillStyle = "rgb(255 255 255)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    fellas.forEach(guy => {
+        guy.update_and_draw(ctx, fpsFactor);
+    });
+}
+</script>
