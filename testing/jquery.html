@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<title>jQuery</title>
+
+<h1>jQuery is amazing</h1>
+<span class="big">jQuery is amazing and it does all things</span>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.slim.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("h1").first().css("color", "red").on("mouseenter", function() {
+        $(this).css("color", "orange");
+    }).on("mouseleave", function() {
+        $(this).css("color", "red");
+    }).clone(true).text("hover over the things").appendTo(document.body);
+
+    $(".big").each(function() {
+        let text = $(this).text();
+        let newHTML = "";
+        for (let i = 0; i < text.length; i++) {
+            newHTML = newHTML + "<span class=\"big-when-mouse\">" + text[i] + "</span>";
+        }
+        $(this).html(newHTML);
+    });
+
+    $(".big-when-mouse").each(function() {
+        $(this).on("mouseenter", function() {
+            $(this).css("font-size", "2em");
+        }).on("mouseleave", function() {
+            $(this).css("font-size", "1em");
+        });
+    });
+});
+</script>
