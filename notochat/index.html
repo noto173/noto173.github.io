@@ -10,11 +10,13 @@ anonymous chatroom thingy<br>
 <div id="chat" style="border: 1px solid black;width: 400px;height: 300px;overflow: scroll;"></div>
 <input id="message" type="text" placeholder="Message">
 <input type="button" onclick="send_message();" value="Send">
+<audio id="beep" src="/notochat/beep.mp3"></audio>
 
 <script>
 const username = document.querySelector("#username");
 const message = document.querySelector("#message");
 const chat = document.querySelector("#chat");
+const beep = document.querySelector("#beep");
 
 const socket = new WebSocket(true ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:8080");
 
@@ -33,11 +35,12 @@ message.addEventListener("keydown", function(event) {
 socket.addEventListener("message", (event) => {
     let recieved = JSON.parse(event.data);
     recieve_message(recieved.username, recieved.message_body);
+    beep.play();
 });
-
 
 function send_message() {
     socket.send(JSON.stringify({username: username.value, message_body: message.value}));
+    message.value = "";
 }
 
 function recieve_message(username, message_body) {
