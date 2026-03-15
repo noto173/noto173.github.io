@@ -61,8 +61,4 @@ function recieve_message(username, message_body) {
         chat.scrollTop = chat.scrollHeight;
     }
 }
-
-fetch("https://api.noto173.net/notochat/log").then(x => x.json()).then(logs => logs.forEach(log => {
-    recieve_message(log.username, log.message_body);
-}));
 </script>
