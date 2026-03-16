@@ -31,7 +31,7 @@ const message = document.querySelector("#message");
 const chat = document.querySelector("#chat");
 const beep = document.querySelector("#beep");
 
-const socket = new WebSocket(true ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:3000/notochat/ws");
+const socket = new WebSocket(false ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:3000/notochat/ws");
 
 document.addEventListener("DOMContentLoaded", function() {
     if (localStorage.getItem("username") !== undefined && localStorage.getItem("username") !== "") {
@@ -64,7 +64,7 @@ function recieve_message(username, message_body, verified) {
     let message = document.createElement("span");
     let user = document.createElement("span");
     user.textContent = `${username || "Anonymous"}: `;
-    user.style.color = (username !== undefined && username !== "") ? (username === "noto173" ? "#9900cc" : (verified ? "blue" : "orange")) : "red";
+    user.style.color = (username !== undefined && username !== "") ? (verified ? (username === "noto173" ? "#9900cc" : "blue") : "#ff7800") : "red";
     let body = document.createElement("span");
     body.textContent = message_body;
     let linebreak = document.createElement("br");
