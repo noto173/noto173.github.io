@@ -8,14 +8,20 @@ remember internet safety and idk blah blah blah<br>
 anonymous chatroom thingy<br>
 THIS IS NOT FILTERED. I AM NOT LIABLE FOR WHAT YOU SEE AS IT IS OUT OF MY CONTROL.<br>
 <br>
-you do not need to supply a username. if you do, you must supply the password for that user.<br>
-if the user does not exist, it will be created.<br>
-messages will not send if you have the wrong password or no password supplied (unless anonymous).<br>
+you do not have to supply a username.<br>
+you do not have to supply a password for your username, but doing so allows you to be "verified"<br>
+supplying a password for a user that doesn't exist will make a new one<br>
+if you supply a password and it doesn't send anything, the user already exists, or your password is wrong<br>
 <input id="username" type="text" maxlength="20" placeholder="Username (Leave blank for anon)" oninput="localStorage.setItem('username', this.value);if (this.value !== '') {password.hidden = false;} else {password.hidden = true;}">
-<input id="password" type="password" maxlength="20" placeholder="Password" hidden>
+<input id="password" type="password" maxlength="20" placeholder="Password (Required for blue name)" hidden>
 <div id="chat" style="border: 1px solid black;width: 400px;height: 300px;overflow: scroll;"></div>
 <input id="message" type="text" maxlength="400" placeholder="Message">
-<input type="button" onclick="send_message();" value="Send">
+<input type="button" onclick="send_message();" value="Send"><br>
+<h2>color guide</h2>
+Purple - MEEEEEEEeeeeeeeeeeee<br>
+Blue - verified user<br>
+Orange - unverified user<br>
+Red - completely anonymous user
 <audio id="beep" src="/notochat/beep.mp3"></audio>
 
 <script>
@@ -42,7 +48,7 @@ message.addEventListener("keydown", function(event) {
 
 socket.addEventListener("message", (event) => {
     let recieved = JSON.parse(event.data);
-    recieve_message(recieved.username, recieved.message_body);
+    recieve_message(recieved.username, recieved.message_body, recieved.verified);
     beep.play();
 });
 
@@ -54,11 +60,11 @@ function send_message() {
     message.value = "";
 }
 
-function recieve_message(username, message_body) {
+function recieve_message(username, message_body, verified) {
     let message = document.createElement("span");
     let user = document.createElement("span");
     user.textContent = `${username || "Anonymous"}: `;
-    user.style.color = (username !== undefined && username !== "") ? (username === "noto173" ? "#9900cc" : "blue") : "red";
+    user.style.color = (username !== undefined && username !== "") ? (username === "noto173" ? "#9900cc" : (verified ? "blue" : "orange")) : "red";
     let body = document.createElement("span");
     body.textContent = message_body;
     let linebreak = document.createElement("br");
