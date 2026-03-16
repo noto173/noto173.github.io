@@ -31,7 +31,7 @@ const message = document.querySelector("#message");
 const chat = document.querySelector("#chat");
 const beep = document.querySelector("#beep");
 
-const socket = new WebSocket(false ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:3000/notochat/ws");
+const socket = new WebSocket(true ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:3000/notochat/ws");
 
 document.addEventListener("DOMContentLoaded", function() {
     if (localStorage.getItem("username") !== undefined && localStorage.getItem("username") !== "") {
