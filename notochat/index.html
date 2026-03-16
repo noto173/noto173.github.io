@@ -12,7 +12,7 @@ you do not need to supply a username. if you do, you must supply the password fo
 if the user does not exist, it will be created.<br>
 messages will not send if you have the wrong password or no password supplied (unless anonymous).<br>
 <input id="username" type="text" maxlength="20" placeholder="Username (Leave blank for anon)" oninput="localStorage.setItem('username', this.value);if (this.value !== '') {password.hidden = false;} else {password.hidden = true;}">
-<input id="password" type="password" maxlength="20" placeholder="Password" oninput="localStorage.setItem('password', this.value);" hidden>
+<input id="password" type="password" maxlength="20" placeholder="Password" hidden>
 <div id="chat" style="border: 1px solid black;width: 400px;height: 300px;overflow: scroll;"></div>
 <input id="message" type="text" maxlength="400" placeholder="Message">
 <input type="button" onclick="send_message();" value="Send">
@@ -28,8 +28,6 @@ const beep = document.querySelector("#beep");
 const socket = new WebSocket(true ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:3000/notochat/ws");
 
 document.addEventListener("DOMContentLoaded", function() {
-    password.value = localStorage.getItem("password") || "";
-    
     if (localStorage.getItem("username") !== undefined && localStorage.getItem("username") !== "") {
         username.value = localStorage.getItem("username");
         password.hidden = false;
