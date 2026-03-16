@@ -14,7 +14,7 @@ supplying a password for a user that doesn't exist will make a new one<br>
 if you supply a password and it doesn't send anything, the user already exists, or your password is wrong<br>
 <input id="username" type="text" maxlength="20" placeholder="Username (Leave blank for anon)" oninput="localStorage.setItem('username', this.value);if (this.value !== '') {password.hidden = false;} else {password.hidden = true;}">
 <input id="password" type="password" maxlength="20" placeholder="Password (Required for blue name)" hidden>
-<div id="chat" style="border: 1px solid black;width: 400px;height: 300px;overflow: scroll;"></div>
+<div id="chat" style="border: 1px solid black;width: 600px;height: 400px;overflow: scroll;overflow-wrap: break-word;"></div>
 <input id="message" type="text" maxlength="400" placeholder="Message">
 <input type="button" onclick="send_message();" value="Send"><br>
 <h2>color guide</h2>
