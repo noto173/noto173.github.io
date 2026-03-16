@@ -6,23 +6,31 @@
 <h1>notochat</h1>
 remember internet safety and idk blah blah blah<br>
 anonymous chatroom thingy<br>
-<input id="username" type="text" placeholder="Username (Optional)" oninput="localStorage.setItem('username', this.value);">
+THIS IS NOT FILTERED. I AM NOT LIABLE FOR WHAT YOU SEE AS IT IS OUT OF MY CONTROL.<br>
+<br>
+you do not need to supply a username. if you do, you must supply the password for that user.<br>
+if the user does not exist, it will be created.<br>
+messages will not send if you have the wrong password or no password supplied (unless anonymous).<br>
+<input id="username" type="text" maxlength="20" placeholder="Username (Leave blank for anon)" oninput="localStorage.setItem('username', this.value);if (this.value !== '') {password.hidden = false;} else {password.hidden = true;}">
+<input id="password" type="password" maxlength="20" placeholder="Password" hidden>
 <div id="chat" style="border: 1px solid black;width: 400px;height: 300px;overflow: scroll;"></div>
-<input id="message" type="text" placeholder="Message">
+<input id="message" type="text" maxlength="400" placeholder="Message">
 <input type="button" onclick="send_message();" value="Send">
 <audio id="beep" src="/notochat/beep.mp3"></audio>
 
 <script>
 const username = document.querySelector("#username");
+const password = document.querySelector("#password");
 const message = document.querySelector("#message");
 const chat = document.querySelector("#chat");
 const beep = document.querySelector("#beep");
 
-const socket = new WebSocket(true ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:8080");
+const socket = new WebSocket(true ? "wss://api.noto173.net/notochat/ws" : "ws://localhost:3000/notochat/ws");
 
 document.addEventListener("DOMContentLoaded", function() {
-    if (localStorage.getItem("username") !== undefined) {
+    if (localStorage.getItem("username") !== undefined && localStorage.getItem("username") !== "") {
         username.value = localStorage.getItem("username");
+        password.hidden = false;
     }
 });
 
@@ -42,7 +50,7 @@ function send_message() {
     if (message.value === "") {
         return;
     }
-    socket.send(JSON.stringify({username: username.value, message_body: message.value}));
+    socket.send(JSON.stringify({username: username.value, password: password.value, message_body: message.value}));
     message.value = "";
 }
 
@@ -50,7 +58,7 @@ function recieve_message(username, message_body) {
     let message = document.createElement("span");
     let user = document.createElement("span");
     user.textContent = `${username || "Anonymous"}: `;
-    user.style.color = (username !== undefined && username !== "") ? "blue" : "red";
+    user.style.color = (username !== undefined && username !== "") ? (username === "noto173" ? "#9900cc" : "blue") : "red";
     let body = document.createElement("span");
     body.textContent = message_body;
     let linebreak = document.createElement("br");
