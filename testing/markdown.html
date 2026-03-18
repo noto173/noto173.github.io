@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<title>markdown test</title>
+
+<main></main>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+<script>
+let markdown = `# Greetings
+this is a test of **markdown**<br>
+thanks to *Marked* for rendering engine thing<br>
+* i
+* like
+* money
+1. and
+2. computers
+<br>i has good gramar<br>
+\`\`\`javascript
+let poop = "nahhhh i don't really feel like it";
+\`\`\``
+document.querySelector("main").innerHTML = marked.parse(markdown);
+</script>
