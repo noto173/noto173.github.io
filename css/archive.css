@@ -14,3 +14,11 @@ span.new {
     color: red;
     font-weight: bolder;
 }
+
+div.audio {
+    margin-bottom: 10px;
+}
+
+div.audio>audio {
+    display: block;
+}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<title>covers</title>
+
+<h1>stock album cover archive 3/18/2026</h1>
+<div id="content"></div>
+
+<script>
+for (let i = 120; i >= 0; i--) {
+    let image = document.createElement("img");
+    image.src = `/archive/public/covers/${i}.webp`;
+    image.style.display = "block";
+    document.querySelector("#content").append(image);
+}
+</script>

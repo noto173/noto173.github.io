@@ -5,6 +5,7 @@
 
 <h1>notocities</h1>
 this is a very epic site to host very epic sites. it is written in node.<br>
+email me at cookdinneronanelephant@duck.com to report illegal behavior or content and i will take care of it in anywhere between an hour or 3 days<br>
 <span id="msg" style="font-size: 1.2em;color: blue;" hidden></span>
 <input type="text" id="pagename" placeholder="Name of page"><br>
 <textarea id="pagedata" rows="25" cols="80" placeholder="Page data"></textarea><br>
@@ -31,14 +32,8 @@ const pagename = document.querySelector("#pagename");
 const pagedata = document.querySelector("#pagedata");
 const pass = document.querySelector("#pass");
 const user = document.querySelector("#user");
-const preview = document.querySelector("iframe");
 const msg = document.querySelector("#msg");
-// for future reference
-/*
-function pagerequest() {
-    fetch(`${apiaddress}?name=${pagename.value}`).then(x => x.text()).then(y => preview.srcdoc = y);
-}
-*/
+
 function getpages() {
     fetch(`${apiaddress}/api/list`).then(x => x.json()).then(pages => pages.sort().forEach(page => {
         let parentspan = document.createElement("div");
