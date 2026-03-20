@@ -4,4 +4,27 @@
 <title>test</title>
 
 <h1>this is test</h1>
-testing if favicon is work
+test of domplus<br>
+move your mouse up and down over the header!<br>
+or edit the below text<br>
+<span>please do more</span><br>
+<button>dont press</button>
+
+<script src="/js/domplus.js"></script>
+<script>
+dom("h1").on("mouseenter", function(e) {
+    this.text("t" + this.text() + "t");
+});
+dom("span").attr("contenteditable", true).css("border", "1px solid black").css("padding", "4px").css("display", "inline-block").css("margin-bottom", "4px").on("input", function(e) {
+    console.log(this.text());
+});
+dom("button").on("click", function(e) {
+    dom("br").hide();
+    dom("h1").css("display", "inline");
+    this.hide();
+}).on("mouseenter", function(e) {
+    this.text("PLEASE DONT!!!");
+}).on("mouseleave", function(e) {
+    this.text("dont press");
+});
+</script>
