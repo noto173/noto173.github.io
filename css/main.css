@@ -66,6 +66,14 @@ body>main>section {
     margin-bottom: -8px;
 }
 
+huge {
+    display: inline-block;
+    line-height: 1;
+    font-size: 2.2em;
+}
+
 stitle {
+    display: inline-block;
+    line-height: 1;
     font-size: 1.8em;
 }

@@ -1,5 +1,10 @@
 *.mp4   binary
 *.mp3   binary
 *.wav   binary
+*.flac  binary
+*.ogg   binary
 *.png   binary
 *.jpg   binary
+*.xz    binary
+*.zip   binary
+*.8xp   binary
