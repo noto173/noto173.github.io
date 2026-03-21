@@ -4,6 +4,7 @@ class NotoGame {
     #paused;
     #halt;
     #lastTime;
+    keys;
 
     constructor(setup, update) {
         this.#setup = setup;
@@ -11,6 +12,16 @@ class NotoGame {
         this.#lastTime = 0;
 
         this.#update_wrap = this.#update_wrap.bind(this);
+
+        this.keys = {};
+
+        window.addEventListener("keydown", (e) => {
+            this.keys[e.key] = true;
+        });
+
+        window.addEventListener("keyup", (e) => {
+            delete this.keys[e.key];
+        });
     }
 
     start() {
